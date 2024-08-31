@@ -166,12 +166,12 @@ Rules:
 4. Capitalize proper nouns, and expand acronyms when necessary.
 5. The output can not have single commas in the content. avoid contractions. 
 6. To improve SEO, incorporate the top keyword search words and phrases for resume writing services.
-7. Follow the exact same html formatting as the example post html: ${exampleBlogPostFileContents}.
+7. Follow the exact same html formatting as the 'example post html': ${exampleBlogPostFileContents}.
 `
                 },
                 {
                     role: "user",
-                    content: `Generate me a new blog post in the expected 'blog_post_object' format.`,
+                    content: `Generate me a new blog post in the expected 'example post html' format.`,
                 },
             ],
         });
