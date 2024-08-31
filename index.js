@@ -15,7 +15,7 @@ const path = require('path');
 const staticBlogPostStoragePath = process.env.STATIC_BLOG_POST_STORAGE_PATH;
 const exampleBlogPostPath = process.env.EXAMPLE_BLOG_POST_PATH;
 
-//
+//            
 //
 //
 
@@ -249,7 +249,7 @@ function appendJsonObject(filePath, newObject) {
 
     const blogPostFileContents = aiResponse.content.replaceAll('```jsx', '').replaceAll('```', '');       
     const postTitle = parseTitleFromString(aiResponse.content);
-    const fileName = postTitle.replaceAll(' ', '-').toLowerCase(); // (responseObj.post_title).trim().replaceAll(' ', '-').toLowerCase(),;
+    const fileName = postTitle.replaceAll(' ', '-').toLowerCase();
 
 
     const newBlogPostObject = {
@@ -262,10 +262,6 @@ function appendJsonObject(filePath, newObject) {
 
     // append file to new file 
      await createFolderAndFile(fileName, blogPostFileContents);
-     /*
-../next13-ai-saas/app/(dashboard)/(routes)/blog/resume-writing-tips-tricks-and-services/post/how-to-write-an-attention-grabbing-resume-summary/page.tsx
-
-*/
 })();
 
  
