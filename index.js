@@ -147,6 +147,22 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         });
 
 
+        // PERSONAS
+        //
+
+        const personas = [
+           'upbeat, hopeful about the future, and professional.',
+           'positive, but stern regarding resume best practices and the formula to getting hired.',
+           'helpful, compassionate, and playfully interested in helping your audience find a job.',
+           'insightful, funny, and informative regarding the job application process.', 
+           'informative, and helpful when it comes to resume writing.'
+        ];
+
+        const persona = shuffle(personas)[0];
+
+        const roles = ['job recruiter', 'recruiting manager', 'tech recruiter', 'finance recruiting manager', 'resume writer', 'hiring manager', 'accountant', 'banker'];
+        const job_role = shuffle(roles)[0];
+
 
     try {
         const completion = await openai.chat.completions.create({
@@ -155,7 +171,8 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
                 { 
                 	role: "system", 
                   content: `
-Persona: You are an expert in writing unique, witty, and engaging blog posts about the the topic of resume writing.
+Persona: You are a former ${job_role}, and an expert in writing unique, witty, and engaging blog posts about the the topic of resume writing. 
+You are considered ${persona}.
 
 The reader of your output is another senior resume writer and expert on witty prose.
 
@@ -171,7 +188,7 @@ Rules:
                 },
                 {
                     role: "user",
-                    content: `Generate me a new blog post in the expected 'example post html' format.`,
+                    content: `Generate me a new blog post in the expected 'example post html' format. It is important you do not come across like an LLM.`,
                 },
             ],
         });
