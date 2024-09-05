@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const staticBlogPostStoragePath = process.env.STATIC_BLOG_POST_STORAGE_PATH;
 const exampleBlogPostPath = process.env.EXAMPLE_BLOG_POST_PATH;
+const newBlogPostFolderBasePath = process.env.NEW_BLOG_POST_FOLDER_BASE_PATH;
 
 //            
 //
@@ -54,7 +55,7 @@ const parseTitleFromString = (input) => {
 
 
 async function createFolderAndFile(folderName, content) {
-    const folderPath = `../next13-ai-saas/app/(dashboard)/(routes)/blog/resume-writing-tips-tricks-and-services/post/${folderName}`;
+    const folderPath = `${newBlogPostFolderBasePath}/${folderName}`;
     const filePath = `${folderPath}/page.tsx`;
 
     try {
@@ -163,7 +164,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
             'Elijah Lewis',
         ];
 
-        const name = shuffle(names)[0];
+        const name = shuffleArray(names)[0];
 
 
         // IDENTITY 
@@ -177,7 +178,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
            'informative, and helpful when drawing from years of experience',
            'matter-of-fact, yet personable',
         ];
-        const attitude = shuffle(attitudes)[0];
+        const attitude = shuffleArray(attitudes)[0];
 
         const verbs = [
             'when it comes to',
@@ -185,7 +186,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
             'when helping your audience improve at',
             'when helping your audience understand',
         ];
-        const verb = shuffle(verbs)[0]
+        const verb = shuffleArray(verbs)[0]
 
         const situations = [
             'the future professional landscape for job applicants',
@@ -201,7 +202,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
             'ATS (applicant tracking systems)',
             'determining if you are qualified for a job',
         ];
-        const situation = shuffle(situations)[0];
+        const situation = shuffleArray(situations)[0];
 
         const identity = `${attitude} ${verb} ${situation}`;
 
@@ -211,7 +212,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
             'resume writer', 'hiring manager', 'accountant', 'banker', 'hr professional', 'SEO strategist and author', 'corporate recruiter',
             'sales recruiter', 'sales manager', 'engineer', 'bank teller', 'professional resume writer',
         ];
-        const job_role = shuffle(roles)[0];
+        const job_role = shuffleArray(roles)[0];
 
 
     try {
