@@ -15,6 +15,7 @@ const path = require('path');
 const staticBlogPostStoragePath = process.env.STATIC_BLOG_POST_STORAGE_PATH;
 const exampleBlogPostPath = process.env.EXAMPLE_BLOG_POST_PATH;
 const newBlogPostFolderBasePath = process.env.NEW_BLOG_POST_FOLDER_BASE_PATH;
+const websiteBaseBlogFolderPath = process.env.WEBSITE_BASE_BLOG_FOLDER_PATH;
 
 //            
 //
@@ -47,6 +48,16 @@ const parseTitleFromString = (input) => {
     const match = input.match(titleRegex);
     return match ? match[1] : null;
 };
+
+
+function getFirstPContent(htmlString) {
+  // Define the regex pattern to find the first <p> tag and capture its contents
+  const regex = /<p[^>]*>(.*?)<\/p>/s;
+  // Match the pattern against the HTML string
+  const match = htmlString.match(regex);
+  // If there's a match, return the captured group (content of the first <p> tag), else return null
+  return match ? match[1].trim() : null;
+}
 
 
 //
@@ -318,8 +329,35 @@ function appendJsonObject(filePath, newObject) {
 
     const blogPostFileContents = aiResponse.content.replaceAll('```jsx', '').replaceAll('```', '');       
     const postTitle = parseTitleFromString(aiResponse.content);
-    const fileName = postTitle.replaceAll(' ', '-').toLowerCase();
+    const fileName = postTitle.replaceAll(' ', '-').replaceAll("'", "").toLowerCase();
 
+
+    // FOR BLOG POSTS 
+    const firstPContent = getFirstPContent(blogPostFileContents);
+    // console.log(firstPContent);
+
+    console.log('_____________');
+    console.log(' ')
+    const phrases = [
+        'Click here to read more',
+        'Click here to read the full article',
+        'Read more:',
+        'Continue reading here',
+        'Continue reading'
+    ];
+
+    const phrase = shuffleArray(phrases)[0];
+    const url = `${websiteBaseBlogFolderPath}/${fileName}`;
+
+    console.log(`${firstPContent}
+
+        ${phrase} ${url}`
+    );
+
+    // 
+    //
+
+    // 
 
     const newBlogPostObject = {
         date: new Date(),
