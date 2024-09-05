@@ -61,7 +61,7 @@ async function createFolderAndFile(folderName, content) {
     try {
         await fs.promises.mkdir(folderPath, { recursive: true });
         await fs.promises.writeFile(filePath, content, 'utf8');
-        console.log(`File created at ${filePath} with content`);
+        // console.log(`File created at ${filePath} with content`);
     } catch (error) {
         console.error(`Error creating folder or file: ${error.message}`);
     }
@@ -294,7 +294,7 @@ function appendJsonObject(filePath, newObject) {
             // Write the updated content back to the file
             fs.writeFile(filePath, updatedContent, 'utf8', (writeErr) => {
                 if (writeErr) throw writeErr;
-                console.log('New blog post object appended successfully!');
+                // console.log('New blog post object appended successfully!');
             });
         }
     });
