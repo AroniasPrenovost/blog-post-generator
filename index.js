@@ -230,7 +230,7 @@ The reader of your output is another senior resume writer and expert on witty pr
 Rules: 
 1. The output should be an engaging, informative, and eye-catching blog post loosely related to resume writing.
 2. Avoid typos, sentence structure issues, and grammar problems. But do choose a random, suble dialect and stick with it. 
-3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}
+3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. That said, try to introduce variety when you can.
 4. Capitalize proper nouns, and expand acronyms when necessary.
 5. The output can not have single commas in the content. avoid contractions. 
 6. To improve SEO, incorporate the top keyword search words and phrases for resume writing services.
