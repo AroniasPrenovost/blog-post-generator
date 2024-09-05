@@ -337,7 +337,9 @@ function appendJsonObject(filePath, newObject) {
     // console.log(firstPContent);
 
     console.log('_____________');
-    console.log(' ')
+    console.log(' ');
+    console.log(' ');
+    
     const phrases = [
         'Click here to read more',
         'Click here to read the full article',
@@ -358,6 +360,10 @@ function appendJsonObject(filePath, newObject) {
 
         ${phrase} ${url}`
     );
+
+    console.log(' ');
+    console.log(' ');
+    console.log('_____________');
 
     // 
     //
