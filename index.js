@@ -341,9 +341,14 @@ function appendJsonObject(filePath, newObject) {
     const phrases = [
         'Click here to read more',
         'Click here to read the full article',
+        'Learn more about generating a new resume',
         'Read more:',
-        'Continue reading here',
-        'Continue reading'
+        'Professionalize your resume today!',
+        'Start your career journey and generate a new resume today!',
+        'Continue reading',
+        'Generate a new resume today!',
+        'Continue reading',
+        'Generate your new resume today!',
     ];
 
     const phrase = shuffleArray(phrases)[0];
