@@ -146,21 +146,71 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
             return updatedItem;
         });
 
-
-        // PERSONAS
         //
-
-        const personas = [
-           'upbeat, hopeful about the future, and professional.',
-           'positive, but stern regarding resume best practices and the formula to getting hired.',
-           'helpful, compassionate, and playfully interested in helping your audience find a job.',
-           'insightful, funny, and informative regarding the job application process.', 
-           'informative, and helpful when it comes to resume writing.'
+        const names = [
+            'Ian Vensel',
+            'Amanda Peete',
+            'Vijay Singha',
+            'Oliver Thompson',
+            'Alice Crumbley',
+            'Alec Bondahl',
+            'Karl Rainey',
+            'Alice Zhu',
+            'Brad Neudorfer',
+            'Neal Prenovost',
+            'Fawn Freeman',
+            'Sarah Cole',
+            'Elijah Lewis',
         ];
 
-        const persona = shuffle(personas)[0];
+        const name = shuffle(names)[0];
 
-        const roles = ['job recruiter', 'recruiting manager', 'tech recruiter', 'finance recruiting manager', 'resume writer', 'hiring manager', 'accountant', 'banker'];
+
+        // IDENTITY 
+        //
+
+        const attitudes = [
+           'upbeat, hopeful about ambitious about a candidates success',
+           'positive, but stern in your advice after years of work experience',
+           'helpful, compassionate, and playfully interested',
+           'insightful, funny, and informative', 
+           'informative, and helpful when drawing from years of experience',
+           'matter-of-fact, yet personable',
+        ];
+        const attitude = shuffle(attitudes)[0];
+
+        const verbs = [
+            'when it comes to',
+            'in regard to',
+            'when helping your audience improve at',
+            'when helping your audience understand',
+        ];
+        const verb = shuffle(verbs)[0]
+
+        const situations = [
+            'the future professional landscape for job applicants',
+            'finding a job',
+            'finding the right formula for getting hired',
+            'writing a personalized resume',
+            'helping candidates with writing a professional resume',
+            'the job application process',
+            'reviewing resumes',
+            'resume writing for job candidates',
+            'writing resumes for job candidates',
+            'resume writing best practices',
+            'ATS (applicant tracking systems)',
+            'determining if you are qualified for a job',
+        ];
+        const situation = shuffle(situations)[0];
+
+        const identity = `${attitude} ${verb} ${situation}`;
+
+        const roles = [
+            'senior hiring manager', 'senior career consultant', 'senior hr professional', 
+            'job recruiter', 'recruiting manager', 'tech recruiter', 'finance recruiting manager', 
+            'resume writer', 'hiring manager', 'accountant', 'banker', 'hr professional', 'SEO strategist and author', 'corporate recruiter',
+            'sales recruiter', 'sales manager', 'engineer', 'bank teller', 'professional resume writer',
+        ];
         const job_role = shuffle(roles)[0];
 
 
@@ -171,8 +221,8 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
                 { 
                 	role: "system", 
                   content: `
-Persona: You are a former ${job_role}, and an expert in writing unique, witty, and engaging blog posts about the the topic of resume writing. 
-You are considered ${persona}.
+Persona: You are ${name}, a ${job_role}, and an expert in writing unique, witty, and engaging blog posts about the the topic of resume writing. 
+You are considered ${identity}.
 
 The reader of your output is another senior resume writer and expert on witty prose.
 
@@ -183,7 +233,7 @@ Rules:
 4. Capitalize proper nouns, and expand acronyms when necessary.
 5. The output can not have single commas in the content. avoid contractions. 
 6. To improve SEO, incorporate the top keyword search words and phrases for resume writing services.
-7. Follow the exact same html formatting as the 'example post html': ${exampleBlogPostFileContents}.
+7. Follow the exact same html formatting as the 'example post html': ${exampleBlogPostFileContents}. 
 `
                 },
                 {
