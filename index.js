@@ -336,10 +336,10 @@ function appendJsonObject(filePath, newObject) {
     const firstPContent = getFirstPContent(blogPostFileContents);
     // console.log(firstPContent);
 
-    console.log('_____________');
+    console.log('|||||||||||||||||||||||||||||||||||||||||');
     console.log(' ');
     console.log(' ');
-    
+
     const phrases = [
         'Click here to read more',
         'Click here to read the full article',
@@ -363,7 +363,7 @@ function appendJsonObject(filePath, newObject) {
 
     console.log(' ');
     console.log(' ');
-    console.log('_____________');
+    console.log('|||||||||||||||||||||||||||||||||||||||||');
 
     // 
     //
