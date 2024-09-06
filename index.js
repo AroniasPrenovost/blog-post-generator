@@ -116,8 +116,8 @@ async function getCurrentStaticBlogPostData() {
 
         tenBlogPostFileNames = [];
         for (let x = 0; x < 10; x++) {
-            if (tenBlogPostResults[x] && tenBlogPostResults[x].fileName) {
-                tenBlogPostFileNames.push(tenBlogPostResults[x].fileName);
+            if (tenBlogPostResults[x] && tenBlogPostResults[x].file) {
+                tenBlogPostFileNames.push(tenBlogPostResults[x].file);
             }
         }
 
@@ -159,90 +159,160 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         });
 
         //
-        const names = [
-            'Ian Vensel',
-            'Amanda Peete',
-            'Vijay Singha',
-            'Oliver Thompson',
-            'Alice Crumbley',
-            'Alec Bondahl',
-            'Karl Rainey',
-            'Alice Zhu',
-            'Brad Neudorfer',
-            'Neal Prenovost',
-            'Fawn Freeman',
-            'Sarah Cole',
-            'Elijah Lewis',
-        ];
+        //
+        //
+        // personas 
+        const personas =  
+            [
+              {
+                "name": "Alice Zhu",
+                "background": "senior hiring manager",
+                "writing_style": "from Canada, prose that is engaging and motivational, often weaving in personal anecdotes from her 15 years in the hiring industry. She provides practical advice rooted in real-world experiences, coaching readers on how to navigate complex hiring processes with confidence."
+              },
+              {
+                "name": "Ian Vensel",
+                "background": "senior career consultant",
+                "writing_style": "from the midwest, detailed, analytical, and empathetic, aimed at professionals looking to transition careers. With over a decade in career consulting, he blends psychological insights with career strategies, making his blog a go-to for transformative career advice."
+              },
+              {
+                "name": "Amanda Peete",
+                "background": "senior HR professional",
+                "writing_style": "from California, balanced with humor and authority, breaking down HR policies and industry trends into digestible pieces. Her 20 years of HR experience allow her to provide a nuanced perspective on employee relations, compliance, and organizational development."
+              },
+              {
+                "name": "David Collins",
+                "background": "job recruiter",
+                "writing_style": "from the East Coast, SEO, friendly, fast-paced and full of actionable tips for job seekers. With over 12 years in recruitment, his writing focuses on networking, personal branding, and the nuances of job market trends, offering readers clear and concise guidance to land their ideal job."
+              },
+              {
+                "name": "Alicia Graham",
+                "background": "tech recruiter",
+                "writing_style": "northeastern US. technical yet accessible, perfect for tech professionals and job seekers. Her 10-year tech recruitment background allows her to delve into specific industry requirements, coding interview tips, and the latest tech trends, all while maintaining a conversational tone."
+              },
+              {
+                "name": "Alec Bondahl",
+                "background": "finance recruiting manager",
+                "writing_style": "from the Pacific Northwest, a combination of thorough analysis with a touch of wit. His expertise in finance recruitment over the last 14 years shines through in his detailed breakdowns of hiring trends, salary negotiations, and the qualities top financial firms seek in candidates."
+              },
+              {
+                "name": "Olivia Reed",
+                "background": "resume writer",
+                "writing_style": "from Southern US (Nevada), precise, structured, SEO-friendly, and immensely helpful. With a sharp eye for detail honed over a decade of professional resume writing, she provides readers with templates, dos and don'ts, and the latest trends in resume format and content."
+              },
+              {
+                "name": "Sarah Cole",
+                "background": "SEO strategist and author",
+                "writing_style": "from Oregon and Washington, rich in SEO terminology yet presented in an engaging, easy-to-understand manner. Her dual expertise in content creation and SEO over 8 years helps job seekers not only craft optimized resumes but also build an online presence that stands out."
+              },
+              {
+                "name": "Gregory Shaw",
+                "background": "corporate recruiter",
+                "writing_style": "from St Louis, direct, no-nonsense, and packed with insider insights. With 15 years in corporate recruitment, he reveals what large companies are truly looking for, offering strategic advice on interviews, company culture, and long-term career planning."
+              },
+              {
+                "name": "Eli Lewis",
+                "background": "sales recruiter",
+                "writing_style": "from Michigan, vibrant and persuasive, much like her approach to sales recruitment over the past 12 years. She excels at narrating success stories, crafting compelling pitches, and providing tips on negotiation and closing deals in job searches."
+              }
+            ];
 
-        const name = shuffleArray(names)[0];
+        const persona = shuffleArray(personas)[0];
+ 
 
-
-        // IDENTITY 
+         // IDENTITY 
         //
 
-        const attitudes = [
-           'upbeat, hopeful about ambitious about a candidates success',
-           'positive, but stern in your advice after years of work experience',
-           'helpful, compassionate, and playfully interested',
-           'insightful, funny, and informative', 
-           'informative, and helpful when drawing from years of experience',
-           'matter-of-fact, yet personable',
-        ];
-        const attitude = shuffleArray(attitudes)[0];
+        //
+        // const names = [
+        //     'Ian Vensel',
+        //     'Ac',
+        //     'Vijay Singha',
+        //     'Oliver Thompson',
+        //     'Alice Crumbley',
+        //     'Alec Bondahl',
+        //     'Karl Rainey',
+        //     'Alice Zhu',
+        //     'Brad Neudorfer',
+        //     'Neal Prenovost',
+        //     'Fawn Freeman',
+        //     'Sarah Cole',
+        //     'Elijah Lewis',
+        // ];
 
-        const verbs = [
-            'when it comes to',
-            'in regard to',
-            'when helping your audience improve at',
-            'when helping your audience understand',
-        ];
-        const verb = shuffleArray(verbs)[0]
-
-        const situations = [
-            'the future professional landscape for job applicants',
-            'finding a job',
-            'finding the right formula for getting hired',
-            'writing a personalized resume',
-            'helping candidates with writing a professional resume',
-            'the job application process',
-            'reviewing resumes',
-            'resume writing for job candidates',
-            'writing resumes for job candidates',
-            'resume writing best practices',
-            'ATS (applicant tracking systems)',
-            'determining if you are qualified for a job',
-        ];
-        const situation = shuffleArray(situations)[0];
-
-        const identity = `${attitude} ${verb} ${situation}`;
-
-        const roles = [
-            'senior hiring manager', 'senior career consultant', 'senior hr professional', 
-            'job recruiter', 'recruiting manager', 'tech recruiter', 'finance recruiting manager', 
-            'resume writer', 'hiring manager', 'accountant', 'banker', 'hr professional', 'SEO strategist and author', 'corporate recruiter',
-            'sales recruiter', 'sales manager', 'engineer', 'bank teller', 'professional resume writer',
-        ];
-        const job_role = shuffleArray(roles)[0];
+        // const name = shuffleArray(names)[0];
 
 
+
+
+        // const attitudes = [
+        //    'upbeat, hopeful about ambitious about a candidates success',
+        //    'positive, but stern in your advice after years of work experience',
+        //    'helpful, compassionate, and playfully interested',
+        //    'insightful, funny, and informative', 
+        //    'informative, and helpful when drawing from years of experience',
+        //    'matter-of-fact, yet personable',
+        // ];
+        // const attitude = shuffleArray(attitudes)[0];
+
+        // const verbs = [
+        //     'when it comes to',
+        //     'in regard to',
+        //     'when helping your audience improve at',
+        //     'when helping your audience understand',
+        // ];
+        // const verb = shuffleArray(verbs)[0]
+
+        // const situations = [
+        //     'the future professional landscape for job applicants',
+        //     'finding a job',
+        //     'finding the right formula for getting hired',
+        //     'writing a personalized resume',
+        //     'helping candidates with writing a professional resume',
+        //     'the job application process',
+        //     'reviewing resumes',
+        //     'resume writing for job candidates',
+        //     'writing resumes for job candidates',
+        //     'resume writing best practices',
+        //     'ATS (applicant tracking systems)',
+        //     'determining if you are qualified for a job',
+        // ];
+        // const situation = shuffleArray(situations)[0];
+
+        // const identity = `${attitude} ${verb} ${situation}`;
+
+        // const roles = [
+        //     'senior hiring manager', 'senior career consultant', 'senior hr professional', 
+        //     'job recruiter', 'recruiting manager', 'tech recruiter', 'finance recruiting manager', 
+        //     'resume writer', 'hiring manager', 'accountant', 'banker', 'hr professional', 'SEO strategist and author', 'corporate recruiter',
+        //     'sales recruiter', 'sales manager', 'engineer', 'bank teller', 'professional resume writer',
+        // ];
+        // const job_role = shuffleArray(roles)[0];
+
+        const amount = shuffleArray(['very little', 'some', 'none', 'none whatsoever', 'sparse', 'no', 'no', 'minimal', 'some (within reason)'])[0];
+
+
+
+        console.log(blogPostFileNamesList);
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-4o",
+            // https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api/172683
+            temperature: 0.07,
+            top_p: 0.08,
             messages: [
                 { 
                 	role: "system", 
                   content: `
-Persona: You are ${name}, a ${job_role}, and an expert in writing unique, witty, and engaging blog posts about the the topic of resume writing. 
-You are considered ${identity}.
+Persona: You are ${persona.name}, a ${persona.background}. You are skilled in writing unique, witty, and engaging blog posts related to the topic of resume writing. 
 
 The reader of your output is another senior resume writer and expert on witty prose.
 
 Rules: 
-1. The output should be an engaging, informative, and eye-catching blog post loosely related to resume writing.
-2. Avoid typos, sentence structure issues, and grammar problems. But do choose a random, suble dialect and stick with it. 
-3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. 
-   That said, try to add variety into the titles when it comes to formatting, tone, grammar, sentance structure, and cadence (but remain professional).
+1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
+2. Avoid typos, sentence structure issues, and grammar problems.
+3. Your dialect is ${persona.writing_style}    
+3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. Try to
+    use varying formats, styles, and sentance structures for the title (but remain professional). Use ${amount} semicolons ":" and dashes "-".
 4. Capitalize proper nouns, and expand acronyms when necessary.
 5. The output can not have single commas in the content. avoid contractions. 
 6. To improve SEO, incorporate the top keyword search words and phrases for resume writing services.
