@@ -386,15 +386,15 @@ function appendJsonObject(filePath, newObject) {
     // had to move this to here.
     let exampleBlogPostFileContents = '';
     try {
-        const examplePostPath = `${websiteBaseBlogFolderPath}/${existingBlogPostData.tenBlogPostFileNames[0]}`;
-        exampleBlogPostFileContents = await fs.promises.readFile(`${exampleBlogPostPath}`, 'utf8');
+        const examplePostPath = `${websiteBaseBlogFolderPath}/${existingBlogPostData.tenBlogPostFileNames[0]}.tsx`;
+        exampleBlogPostFileContents = await fs.promises.readFile(examplePostPath, 'utf8');
         // console.log(typeof exampleBlogPostFileContents);
     } catch (error) {
         console.error('error getting example file');
         return 'FAILED: error getting example file';
     }
 
-    // console.log({exampleBlogPostFileContents, existingBlogPostData});
+    console.log({exampleBlogPostFileContents, existingBlogPostData});
 
 
     // console.log({ existingBlogPostData });
