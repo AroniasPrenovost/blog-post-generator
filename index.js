@@ -13,7 +13,6 @@ const openai = new OpenAI(apiKey);
 const fs = require('fs');
 const path = require('path');
 const staticBlogPostStoragePath = process.env.STATIC_BLOG_POST_STORAGE_PATH;
-const exampleBlogPostPath = process.env.EXAMPLE_BLOG_POST_PATH;
 const newBlogPostFolderBasePath = process.env.NEW_BLOG_POST_FOLDER_BASE_PATH;
 const websiteBaseBlogFolderPath = process.env.WEBSITE_BASE_BLOG_FOLDER_PATH;
 
@@ -386,7 +385,8 @@ function appendJsonObject(filePath, newObject) {
     // had to move this to here.
     let exampleBlogPostFileContents = '';
     try {
-        const examplePostPath = `${websiteBaseBlogFolderPath}/${existingBlogPostData.tenBlogPostFileNames[0]}.tsx`;
+        const examplePostPath = `${newBlogPostFolderBasePath}/${existingBlogPostData.tenBlogPostFileNames[0]}/page.tsx`;
+        console.log(examplePostPath)
         exampleBlogPostFileContents = await fs.promises.readFile(examplePostPath, 'utf8');
         // console.log(typeof exampleBlogPostFileContents);
     } catch (error) {
@@ -394,7 +394,7 @@ function appendJsonObject(filePath, newObject) {
         return 'FAILED: error getting example file';
     }
 
-    console.log({exampleBlogPostFileContents, existingBlogPostData});
+    // console.log({exampleBlogPostFileContents, existingBlogPostData});
 
 
     // console.log({ existingBlogPostData });
