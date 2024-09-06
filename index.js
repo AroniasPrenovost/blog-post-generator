@@ -88,15 +88,7 @@ async function getCurrentStaticBlogPostData() {
     // globals
     let blogPostData = [];
     let tenBlogPostFileNames = [];
-    let exampleBlogPostFileContents = '';
 
-    try {
-        exampleBlogPostFileContents = await fs.promises.readFile(`${exampleBlogPostPath}`, 'utf8');
-        // console.log(typeof exampleBlogPostFileContents);
-    } catch (error) {
-        console.error('error getting example file');
-        return 'FAILED: error getting example file';
-    }
 
     // get the static blog post data
     try {
@@ -121,11 +113,12 @@ async function getCurrentStaticBlogPostData() {
             }
         }
 
+ 
         return {
             blogPostData, 
             tenBlogPostFileNames,
             tenBlogPostResults,
-            exampleBlogPostFileContents,
+            // exampleBlogPostFileContents,
         };
     } catch (error) {
         console.error(`Error getting blogPostData: ${error.message}`);
@@ -389,10 +382,25 @@ function appendJsonObject(filePath, newObject) {
 
 (async () => {
     const existingBlogPostData = await getCurrentStaticBlogPostData();
+
+    // had to move this to here.
+    let exampleBlogPostFileContents = '';
+    try {
+        const examplePostPath = `${websiteBaseBlogFolderPath}/${existingBlogPostData.tenBlogPostFileNames[0]}`;
+        exampleBlogPostFileContents = await fs.promises.readFile(`${exampleBlogPostPath}`, 'utf8');
+        // console.log(typeof exampleBlogPostFileContents);
+    } catch (error) {
+        console.error('error getting example file');
+        return 'FAILED: error getting example file';
+    }
+
+    // console.log({exampleBlogPostFileContents, existingBlogPostData});
+
+
     // console.log({ existingBlogPostData });
     const aiResponse = await getCompletion(
         existingBlogPostData.tenBlogPostFileNames, 
-        existingBlogPostData.exampleBlogPostFileContents,
+        exampleBlogPostFileContents,
     );
 
     // console.log('AI RESPONSE: ', aiResponse.content)
