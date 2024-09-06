@@ -288,7 +288,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         // ];
         // const job_role = shuffleArray(roles)[0];
 
-        const amount = shuffleArray(['very little', 'some', 'none', 'none whatsoever', 'sparse', 'no', 'no', 'minimal', 'some (within reason)'])[0];
+        const amount = shuffleArray(['very little', 'very little', 'some', 'no', 'no', 'sparse', 'no', 'no', 'minimal', 'some (within reason)'])[0];
 
 
 
@@ -312,7 +312,7 @@ Rules:
 2. Avoid typos, sentence structure issues, and grammar problems.
 3. Your dialect is ${persona.writing_style}    
 3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. Try to
-    use varying formats, styles, and sentance structures for the title (but remain professional). Use ${amount} semicolons ":" and dashes "-".
+    use varying formats, styles, and sentance structures for the Heading title. Use ${amount} semicolons ":", dashes "-", and commas ",".
 4. Capitalize proper nouns, and expand acronyms when necessary.
 5. The output can not have single commas in the content. avoid contractions. 
 6. To improve SEO, incorporate the top keyword search words and phrases for resume writing services.
