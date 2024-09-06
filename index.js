@@ -242,7 +242,7 @@ Rules:
 1. The output should be an engaging, informative, and eye-catching blog post loosely related to resume writing.
 2. Avoid typos, sentence structure issues, and grammar problems. But do choose a random, suble dialect and stick with it. 
 3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. 
-   That said, try to introduce variety into the titles when it comes to formatting, tone, grammar, sentance structure, and cadence (but remain professional).
+   That said, try to add variety into the titles when it comes to formatting, tone, grammar, sentance structure, and cadence (but remain professional).
 4. Capitalize proper nouns, and expand acronyms when necessary.
 5. The output can not have single commas in the content. avoid contractions. 
 6. To improve SEO, incorporate the top keyword search words and phrases for resume writing services.
@@ -327,7 +327,7 @@ function appendJsonObject(filePath, newObject) {
 
     // console.log('AI RESPONSE: ', aiResponse.content)
 
-    const blogPostFileContents = aiResponse.content.replaceAll('```jsx', '').replaceAll('```', '');       
+    const blogPostFileContents = aiResponse.content.replaceAll('```jsx', '').replaceAll('```', '').replaceAll("'", '"');       
     const postTitle = parseTitleFromString(aiResponse.content);
     const fileName = postTitle.replaceAll(' ', '-').replaceAll("'", "").toLowerCase();
 
