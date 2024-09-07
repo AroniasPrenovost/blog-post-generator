@@ -291,11 +291,13 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         // })
 
 
+
+
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-4o",
             // https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api/172683
-            temperature: 0.07,
+            temperature: 0.08,
             top_p: 0.08,
             messages: [
                 { 
@@ -305,18 +307,18 @@ Persona: You are ${persona.name}, a ${persona.background}. You are skilled in wr
 
 Your dialect and writing style is ${persona.writing_style}.
 
-The readers of your output are new grads, job seekers, and professionals interested in updating their resume for a new job search.
+The readers of your output are new grads, job seekers, and professionals interested in resume writing services as they embark on their job search.
 
 Rules: 
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
 2. Avoid typos, sentence structure issues, and grammar problems.
-3. Your dialect is ${persona.writing_style}    
-3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. 
- Use varying formats, styles, and sentance structures for the Heading title. Use ${amount} semicolons ":", dashes "-", or commas "," in the title.
-4. Capitalize proper nouns, and expand acronyms when necessary.
-5. The output can not have single commas in the content. avoid contractions. 
-6. Optimize for SEO, incorporate the top keyword search words and phrases for resume writing service while sounding natural.
-7. Follow the exact same html formatting as the 'example post html': ${exampleBlogPostFileContents}. The imported packages and html structure should remain exactly the same. 
+3. Your dialect is ${persona.writing_style}
+4. Use varying formats, styles, and sentance structures for the Heading title. The verbiage and format should not repeat from these examples: ${blogPostFileNamesList}. 
+5. Be creative and make the tone of your post different (in style and verbiage) from existing examples.
+6. Capitalize proper nouns, and expand acronyms when necessary.
+7. The output canNOT have single commas in the content. avoid contractions. 
+8. Optimize for SEO, incorporate the top keyword search words and phrases for resume writing services while sounding natural.
+9. Follow the exact same html formatting as the 'example post html': ${exampleBlogPostFileContents}. The imported packages and html structure should remain exactly the same. 
 `
                 },
                 {
