@@ -307,14 +307,12 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
                   content: `
 Persona: You are ${persona.name}, a ${persona.job}. You are skilled in writing unique, witty, and engaging blog posts related to the topic of resume writing. 
 
-Your dialect and writing style is ${persona.background}.
-
 The readers of your output are new grads, job seekers, and professionals interested in resume writing services as they embark on their job search.
 
 Rules: 
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
 2. Avoid typos, sentence structure issues, and grammar problems.
-3. Your dialect is ${persona.writing_style} and you tend to write in a ${voice} voice. 
+3. Your dialect and writing style is ${persona.background}, and you tend to write in a ${voice} voice. 
 4. Use varying styles, sentence structure, and phrasing for the title of the article. The verbiage, tone, and format should not repeat these examples: ${blogPostFileNamesList}. 
 5. Be creative and make the tone of your post different (in style and verbiage) from existing examples.
 6. Capitalize proper nouns, and expand acronyms when necessary.
