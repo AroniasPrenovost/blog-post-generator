@@ -188,7 +188,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
               },
               {
                 "name": "Olivia Reed",
-                "job": "resume writer",
+                "job": "blogger",
                 "background": "from Southern US (Nevada), precise, structured, SEO-friendly, and immensely helpful. With a sharp eye for detail honed over a decade of professional resume writing, she provides readers with templates, dos and don'ts, and the latest trends in resume format and content."
               },
               {
@@ -318,7 +318,7 @@ Rules:
 6. Capitalize proper nouns, and expand acronyms when necessary.
 7. The output canNOT have single commas in the content. avoid contractions. 
 8. Optimize for SEO, incorporate the top keyword search words and phrases for resume writing services while sounding natural.
-9. Follow the exact same html formatting as the 'example post html': ${exampleBlogPostFileContents}. The imported packages and html structure should remain exactly the same. 
+9. Follow the exact same html formatting as the 'example post html' (except when  a section has the 'custom_html' class): ${exampleBlogPostFileContents}. The imported packages and html structure should remain exactly the same. 
 `
                 },
                 {
