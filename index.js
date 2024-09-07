@@ -291,14 +291,16 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         // })
 
 
-
+    const model = shuffleArray('gpt-4o', 'gpt-3.5-turbo')[0];
+    const temp = shuffleArray(0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 0.06, 0.07)[0];
+    const top_p = shuffleArray([0.08, 0.07, 0.06, 0.09, 0.08])[0];
 
     try {
         const completion = await openai.chat.completions.create({
-            model: "gpt-4o",
+            model: model,
             // https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api/172683
-            temperature: 0.08,
-            top_p: 0.08,
+            temperature: temp,
+            top_p: top_p,
             messages: [
                 { 
                 	role: "system", 
