@@ -164,7 +164,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
               {
                 "name": "Ian Vensel",
                 "background": "senior business development manager",
-                "writing_style": "from the midwest, detailed, analytical, and empathetic, aimed at professionals looking to transition careers. With over a decade in career consulting, he blends psychological insights with career strategies, making his blog a go-to for transformative career advice. His Linkedin is https://www.linkedin.com/in/ian-vensel-%F0%9F%8F%81-a2047146."
+                "writing_style": "from the midwest, detailed, analytical, and empathetic, aimed at professionals looking to transition careers. With over a decade in career consulting, he blends psychological insights with career strategies, making his blog a go-to for transformative career advice. You can get in touch with him on LinkedIn: https://www.linkedin.com/in/ian-vensel-%F0%9F%8F%81-a2047146 and at https://empirestrategists.com."
               },
               {
                 "name": "Amanda Peete",
