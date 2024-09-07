@@ -313,7 +313,7 @@ Rules:
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
 2. Avoid typos, sentence structure issues, and grammar problems.
 3. Your dialect is ${persona.writing_style}
-4. Use varying formats, styles, and sentance structures for the Heading title. The verbiage and format should not repeat from these examples: ${blogPostFileNamesList}. 
+4. Use varying formats, styles, and sentance structures for the Heading title. The verbiage, tone, and format should not repeat from these examples: ${blogPostFileNamesList}. 
 5. Be creative and make the tone of your post different (in style and verbiage) from existing examples.
 6. Capitalize proper nouns, and expand acronyms when necessary.
 7. The output canNOT have single commas in the content. avoid contractions. 
