@@ -49,7 +49,7 @@ const parseTitleFromString = (input) => {
 };
 
 
-function getFirstPContent(htmlString) {
+function getFirstPTagContent(htmlString) {
   // Define the regex pattern to find the first <p> tag and capture its contents
   const regex = /<p[^>]*>(.*?)<\/p>/s;
   // Match the pattern against the HTML string
@@ -159,12 +159,12 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
               {
                 "name": "Alice Zhu",
                 "background": "senior hiring manager",
-                "writing_style": "from Canada, prose that is engaging and motivational, often weaving in personal anecdotes from her 15 years in the hiring industry. She provides practical advice rooted in real-world experiences, coaching readers on how to navigate complex hiring processes with confidence."
+                "writing_style": "from Canada, prose that is engaging and motivational, often weaving in dl anecdotes from her 15 years in the hiring industry. She provides practical advice rooted in real-world experiences, coaching readers on how to navigate complex hiring processes with confidence."
               },
               {
                 "name": "Ian Vensel",
-                "background": "senior career consultant",
-                "writing_style": "from the midwest, detailed, analytical, and empathetic, aimed at professionals looking to transition careers. With over a decade in career consulting, he blends psychological insights with career strategies, making his blog a go-to for transformative career advice."
+                "background": "senior business development manager",
+                "writing_style": "from the midwest, detailed, analytical, and empathetic, aimed at professionals looking to transition careers. With over a decade in career consulting, he blends psychological insights with career strategies, making his blog a go-to for transformative career advice. His Linkedin is https://www.linkedin.com/in/ian-vensel-%F0%9F%8F%81-a2047146."
               },
               {
                 "name": "Amanda Peete",
@@ -280,11 +280,17 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         // ];
         // const job_role = shuffleArray(roles)[0];
 
-        const amount = shuffleArray(['very little', 'very little', 'some', 'no', 'no', 'sparse', 'no', 'no', 'minimal', 'some (within reason)'])[0];
+        const amount = shuffleArray(['very little', 'many', 'no', 'very few, if any', 'no', 'very little', 'some', 'no', 'no', 'sparse', 'no', 'no', 'minimal', 'some (within reason)'])[0];
 
 
+        // console.log({
+        //     amount,
+        //     persona,
+        //     blogPostFileNamesList,
+        //     exampleBlogPostFileContents,
+        // })
 
-        console.log(blogPostFileNamesList);
+
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-4o",
@@ -297,23 +303,25 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
                   content: `
 Persona: You are ${persona.name}, a ${persona.background}. You are skilled in writing unique, witty, and engaging blog posts related to the topic of resume writing. 
 
-The reader of your output is another senior resume writer and expert on witty prose.
+Your dialect and writing style is ${persona.writing_style}.
+
+The readers of your output are new grads, job seekers, and professionals interested in updating their resume for a new job search.
 
 Rules: 
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
 2. Avoid typos, sentence structure issues, and grammar problems.
 3. Your dialect is ${persona.writing_style}    
-3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. Try to
-    use varying formats, styles, and sentance structures for the Heading title. Use ${amount} semicolons ":", dashes "-", and commas ",".
+3. To get a sense of the tone of these posts, here are 10 randomly selected titles from existing posts: ${blogPostFileNamesList}. 
+ Use varying formats, styles, and sentance structures for the Heading title. Use ${amount} semicolons ":", dashes "-", or commas "," in the title.
 4. Capitalize proper nouns, and expand acronyms when necessary.
 5. The output can not have single commas in the content. avoid contractions. 
-6. To improve SEO, incorporate the top keyword search words and phrases for resume writing services.
+6. Optimize for SEO, incorporate the top keyword search words and phrases for resume writing service while sounding natural.
 7. Follow the exact same html formatting as the 'example post html': ${exampleBlogPostFileContents}. The imported packages and html structure should remain exactly the same. 
 `
                 },
                 {
                     role: "user",
-                    content: `Generate me a new blog post in the expected 'example post html' format. It is important you do not come across like an LLM.`,
+                    content: `Generate me a new blog post in the expected 'example post html' format.`,
                 },
             ],
         });
@@ -339,7 +347,7 @@ function appendJsonObject(filePath, newObject) {
                 const newContent = JSON.stringify([newObject], null, 2);
                 fs.writeFile(filePath, newContent, 'utf8', (writeErr) => {
                     if (writeErr) throw writeErr;
-                    console.log('File created and new object added!');
+                    // console.log('File created and new object added!');
                 });
             } else {
                 throw readErr;
@@ -386,7 +394,7 @@ function appendJsonObject(filePath, newObject) {
     let exampleBlogPostFileContents = '';
     try {
         const examplePostPath = `${newBlogPostFolderBasePath}/${existingBlogPostData.tenBlogPostFileNames[0]}/page.tsx`;
-        console.log(examplePostPath)
+        // console.log(examplePostPath)
         exampleBlogPostFileContents = await fs.promises.readFile(examplePostPath, 'utf8');
         // console.log(typeof exampleBlogPostFileContents);
     } catch (error) {
@@ -411,8 +419,8 @@ function appendJsonObject(filePath, newObject) {
 
 
     // FOR BLOG POSTS 
-    const firstPContent = getFirstPContent(blogPostFileContents);
-    // console.log(firstPContent);
+    const firstPTagContent = getFirstPTagContent(blogPostFileContents);
+    // console.log(firstPTagContent);
 
     console.log('|||||||||||||||||||||||||||||||||||||||||');
     console.log(' ');
@@ -434,7 +442,7 @@ function appendJsonObject(filePath, newObject) {
     const phrase = shuffleArray(phrases)[0];
     const url = `${websiteBaseBlogFolderPath}/${fileName}`;
 
-    console.log(`${firstPContent}
+    console.log(`${firstPTagContent}
 
         ${phrase} ${url}`
     );
