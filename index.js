@@ -313,8 +313,8 @@ Rules:
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
 2. Avoid typos, sentence structure issues, and grammar problems.
 3. Your dialect and writing style is ${persona.background}, and you tend to write in a ${voice} voice. 
-4. Use varying styles, sentence structure, and phrasing for the title of the article. The verbiage, tone, and format should not repeat these examples: ${blogPostFileNamesList}. 
-5. Be creative and make the tone of your post different (in style and verbiage) from existing examples.
+4. Use varying styles, sentence structure, and phrasing for the title of the article. The verbiage, tone, and format should not repeat these title examples: ${blogPostFileNamesList}. 
+5. Be creative and make the tone of your post different (in style and verbiage) from example.
 6. Capitalize proper nouns, and expand acronyms when necessary.
 7. The output canNOT have single commas in the content. avoid contractions. 
 8. Optimize for SEO, incorporate the top keyword search words and phrases for resume writing services while sounding natural.
