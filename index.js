@@ -256,9 +256,9 @@ Rules:
 2. Avoid typos, sentence structure issues, and grammar problems. Capitalize proper nouns, and expand acronyms when necessary.
 3. Your dialect and writing style is ${persona.background}, and you tend to write in a ${voice} voice.
 4. Use varying styles, sentence structure, and phrasing for the title of the article. Be different from these examples: ${blogPostFileNamesList}.
-7. The output canNOT have single commas in the content. avoid contractions.
-8. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
-9. Follow the same html formatting as this template: ${blankTemplate}, but add spans, strongs, italics, etc. inside of sections with the 'custom_html' class). The imported packages and html structure should remain exactly the same.
+5. The output canNOT have single commas in the content. avoid contractions.
+6. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
+7. Follow the same imports and html formatting as this template: ${blankTemplate} (but do add tags (spans, strongs, italics, etc.) inside of sections with the 'custom_html' class).
 `
                 },
                 {
