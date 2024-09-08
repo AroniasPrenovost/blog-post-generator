@@ -127,15 +127,72 @@ async function getCurrentStaticBlogPostData() {
     }
 }
 
-
 //
 //
 //
+// blog post title
+
+async function getBlogPostTitleCompletion(blogPostFileNamesList) {
+
+  blogPostFileNamesList = blogPostFileNamesList.map(item => {
+      // Replace '-' with ' '
+      let updatedItem = item.replace(/-/g, ' ');
+
+      // Title case the updated item
+      updatedItem = updatedItem.split(' ').map(part => {
+          return part.split(' ').map(word => {
+              return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+          }).join(' ');
+      }).join(' ');
+
+      return updatedItem;
+  });
+
+  const model = shuffleArray(['gpt-4o', 'gpt-3.5-turbo'])[0];
+  const temp = shuffleArray([0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 0.06, 0.07])[0];
+  const top_p = shuffleArray([0.08, 0.07, 0.06, 0.09, 0.08])[0];
+  try {
+      const completion = await openai.chat.completions.create({
+          model: model,
+          // https://community.openai.com/t/cheat-sheet-mastering-temperature-and-top-p-in-chatgpt-api/172683
+          temperature: temp,
+          top_p: top_p,
+          messages: [
+              {
+                role: "system",
+                content: `
+Persona: You are skilled in writing unique, witty, and engaging blog post titles that relate to job searching, resume writing, resume writing services, and thejob application process.
+Rules:
+1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
+4. Use varying styles, sentence structure, and phrasing for the title of the article. Be different from these examples: ${blogPostFileNamesList}.
+6. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
+`
+              },
+              {
+                  role: "user",
+                  content: `Generate me a new blog post title in string format, title case.`,
+              },
+          ],
+      });
+
+      let content = completion.choices[0].message;
+      // content = content.trim();
+
+      return content;
+  } catch (error) {
+      console.error("Error fetching getBlogPostTitleCompletion:", error);
+      return null;
+  }
+}
 //
+//
+//
+// blog post content
 
 
 
-async function getCompletion(blogPostFileNamesList, blankTemplate) {
+
+async function getBlogPostCompletion(blogTitle, blankTemplate) {
 		// console.log({blogPostFileNamesList, template});
     // console.log('___')
 
@@ -143,19 +200,19 @@ async function getCompletion(blogPostFileNamesList, blankTemplate) {
         //
         //
         // list of existing file names
-        blogPostFileNamesList = blogPostFileNamesList.map(item => {
-            // Replace '-' with ' '
-            let updatedItem = item.replace(/-/g, ' ');
-
-            // Title case the updated item
-            updatedItem = updatedItem.split(' ').map(part => {
-                return part.split(' ').map(word => {
-                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-                }).join(' ');
-            }).join(' ');
-
-            return updatedItem;
-        });
+        // blogPostFileNamesList = blogPostFileNamesList.map(item => {
+        //     // Replace '-' with ' '
+        //     let updatedItem = item.replace(/-/g, ' ');
+        //
+        //     // Title case the updated item
+        //     updatedItem = updatedItem.split(' ').map(part => {
+        //         return part.split(' ').map(word => {
+        //             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        //         }).join(' ');
+        //     }).join(' ');
+        //
+        //     return updatedItem;
+        // });
 
         //
         //
@@ -247,7 +304,7 @@ async function getCompletion(blogPostFileNamesList, blankTemplate) {
                 {
                 	role: "system",
                   content: `
-Persona: You are ${persona.name}, a ${persona.job}. You are skilled in writing unique, witty, and engaging blog posts for a resume writing services website.
+Persona: You are ${persona.name}, a ${persona.job}. You are skilled in writing unique, witty, and engaging blog post, this one is titled "${blogTitle}".
 
 The readers of your output are new grads, job seekers, and professionals.
 
@@ -255,10 +312,9 @@ Rules:
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
 2. Avoid typos, sentence structure issues, and grammar problems. Capitalize proper nouns, and expand acronyms when necessary.
 3. Your dialect and writing style is ${persona.background}, and you tend to write in a ${voice} voice.
-4. Use varying styles, sentence structure, and phrasing for the title of the article. Be different from these examples: ${blogPostFileNamesList}.
-5. The output canNOT have single commas in the content. avoid contractions.
-6. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
-7. Follow the same imports and html formatting as this template: ${blankTemplate} (but do add tags (spans, strongs, italics, etc.) inside of sections with the 'custom_html' class).
+4. The output canNOT have single commas in the content. avoid contractions.
+5. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
+6. Follow the same imports and html formatting as this template: ${blankTemplate} (but do add tags (spans, strongs, italics, etc.) inside of sections with the 'custom_html' class).
 `
                 },
                 {
@@ -269,14 +325,15 @@ Rules:
         });
 
         let content = completion.choices[0].message;
-        content = content
-          .replaceAll('```jsx', '')
-          .replaceAll('```', '');
+        // console.log(content);
+        // console.log(typeof content);
+        //
+        // content = content.replaceAll('```jsx', '').replaceAll('```', '');
           // .replaceAll("'", '"');
 
         return content;
     } catch (error) {
-        console.error("Error fetching completion:", error);
+        console.error("Error fetching getBlogPostCompletion:", error);
         return null;
     }
 }
@@ -364,14 +421,26 @@ function appendJsonObject(filePath, newObject) {
     }
     // console.log({ existingBlogPostData });
 
-    const aiResponse = await getCompletion(
-        existingBlogPostData.tenBlogPostFileNames,
+    const aiResponseTitle = await getBlogPostTitleCompletion(
+      existingBlogPostData.tenBlogPostFileNames,
+    );
+    let postTitle = aiResponseTitle.content.trim().replaceAll('"', '').replaceAll("'", "");
+    // console.log({blogTitle})
+
+    const aiResponseBlogPost = await getBlogPostCompletion(
+        postTitle,
         blankBlogPostTemplate,
     );
     // console.log('AI RESPONSE: ', aiResponse.content)
+    // console.log(aiResponseBlogPost)
 
-    const blogPostFileContents = aiResponse.content;
-    const postTitle = parseTitleFromString(blogPostFileContents);
+    let blogPostFileContents = aiResponseBlogPost.content;
+    // console.log(content);
+    // console.log(typeof content);
+
+    blogPostFileContents = blogPostFileContents.replaceAll('```javascript', '').replaceAll('```', '').replaceAll('jsx', '');
+    // console.log({blogPostFileContents})
+    // const postTitle = parseTitleFromString(blogPostFileContents);
     const fileName = postTitle.replaceAll(' ', '-').replaceAll("'", "").replaceAll(":", "").toLowerCase();
 
     //
