@@ -12,11 +12,11 @@ const openai = new OpenAI(apiKey);
 
 const fs = require('fs');
 const path = require('path');
-const staticBlogPostStoragePath = process.env.STATIC_BLOG_POST_STORAGE_PATH;
+const externalJsonBlogPostList = process.env.STATIC_BLOG_POST_STORAGE_PATH;
 const newBlogPostFolderBasePath = process.env.NEW_BLOG_POST_FOLDER_BASE_PATH;
-const websiteBaseBlogFolderPath = process.env.WEBSITE_BASE_BLOG_FOLDER_PATH;
+const webpageBlogPostBaseUrl = process.env.WEBPAGE_BLOG_POST_BASE_URL;
 
-//            
+//
 //
 //
 
@@ -88,10 +88,12 @@ async function getCurrentStaticBlogPostData() {
     let blogPostData = [];
     let tenBlogPostFileNames = [];
 
+    console.log(externalJsonBlogPostList)
+
 
     // get the static blog post data
     try {
-        const data = await fs.promises.readFile(staticBlogPostStoragePath, 'utf8');
+        const data = await fs.promises.readFile(externalJsonBlogPostList, 'utf8');
         blogPostData = JSON.parse(data);
         console.log(`Found ${blogPostData.length} existing blog posts`);
 
@@ -112,9 +114,9 @@ async function getCurrentStaticBlogPostData() {
             }
         }
 
- 
+
         return {
-            blogPostData, 
+            blogPostData,
             tenBlogPostFileNames,
             tenBlogPostResults,
             // exampleBlogPostFileContents,
@@ -134,7 +136,8 @@ async function getCurrentStaticBlogPostData() {
 
 
 async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents) {
-		// console.log({blogPostFileNamesList, exampleBlogPostFileContents});
+		console.log({blogPostFileNamesList, exampleBlogPostFileContents});
+    console.log('___')
 		// return blogPostFileNamesList;
         blogPostFileNamesList = blogPostFileNamesList.map(item => {
             // Replace '-' with ' '
@@ -153,8 +156,8 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         //
         //
         //
-        // personas 
-        const personas =  
+        // personas
+        const personas =
             [
               {
                 "name": "Alice Zhu",
@@ -209,9 +212,11 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
             ];
 
         const persona = shuffleArray(personas)[0];
- 
 
-         // IDENTITY 
+        console.log({persona});
+
+
+         // IDENTITY
         //
 
         //
@@ -240,7 +245,7 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         //    'upbeat, hopeful about ambitious about a candidates success',
         //    'positive, but stern in your advice after years of work experience',
         //    'helpful, compassionate, and playfully interested',
-        //    'insightful, funny, and informative', 
+        //    'insightful, funny, and informative',
         //    'informative, and helpful when drawing from years of experience',
         //    'matter-of-fact, yet personable',
         // ];
@@ -273,8 +278,8 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         // const identity = `${attitude} ${verb} ${situation}`;
 
         // const roles = [
-        //     'senior hiring manager', 'senior career consultant', 'senior hr professional', 
-        //     'job recruiter', 'recruiting manager', 'tech recruiter', 'finance recruiting manager', 
+        //     'senior hiring manager', 'senior career consultant', 'senior hr professional',
+        //     'job recruiter', 'recruiting manager', 'tech recruiter', 'finance recruiting manager',
         //     'resume writer', 'hiring manager', 'accountant', 'banker', 'hr professional', 'SEO strategist and author', 'corporate recruiter',
         //     'sales recruiter', 'sales manager', 'engineer', 'bank teller', 'professional resume writer',
         // ];
@@ -290,10 +295,13 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
         //     exampleBlogPostFileContents,
         // })
 
+        console.log({voice});
 
-    const model = shuffleArray('gpt-4o', 'gpt-3.5-turbo')[0];
-    const temp = shuffleArray(0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 0.06, 0.07)[0];
+
+    const model = shuffleArray(['gpt-4o', 'gpt-3.5-turbo'])[0];
+    const temp = shuffleArray([0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 0.06, 0.07])[0];
     const top_p = shuffleArray([0.08, 0.07, 0.06, 0.09, 0.08])[0];
+    console.log({model, temp, top_p});
 
     try {
         const completion = await openai.chat.completions.create({
@@ -302,23 +310,23 @@ async function getCompletion(blogPostFileNamesList, exampleBlogPostFileContents)
             temperature: temp,
             top_p: top_p,
             messages: [
-                { 
-                	role: "system", 
+                {
+                	role: "system",
                   content: `
-Persona: You are ${persona.name}, a ${persona.job}. You are skilled in writing unique, witty, and engaging blog posts related to the topic of resume writing. 
+Persona: You are ${persona.name}, a ${persona.job}. You are skilled in writing unique, witty, and engaging blog posts related to the topic of resume writing.
 
 The readers of your output are new grads, job seekers, and professionals interested in resume writing services as they embark on their job search.
 
-Rules: 
+Rules:
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
 2. Avoid typos, sentence structure issues, and grammar problems.
-3. Your dialect and writing style is ${persona.background}, and you tend to write in a ${voice} voice. 
-4. Use varying styles, sentence structure, and phrasing for the title of the article. The verbiage, tone, and format should not repeat these title examples: ${blogPostFileNamesList}. 
+3. Your dialect and writing style is ${persona.background}, and you tend to write in a ${voice} voice.
+4. Use varying styles, sentence structure, and phrasing for the title of the article. The verbiage, tone, and format should not repeat these title examples: ${blogPostFileNamesList}.
 5. Be creative and make the tone of your post different (in style and verbiage) from example.
 6. Capitalize proper nouns, and expand acronyms when necessary.
-7. The output canNOT have single commas in the content. avoid contractions. 
+7. The output canNOT have single commas in the content. avoid contractions.
 8. Optimize for SEO, incorporate the top keyword search words and phrases for resume writing services while sounding natural.
-9. Follow the exact same html formatting as the 'example post html' (except when  a section has the 'custom_html' class): ${exampleBlogPostFileContents}. The imported packages and html structure should remain exactly the same. 
+9. Follow the exact same html formatting as the 'example post html' (except when  a section has the 'custom_html' class): ${exampleBlogPostFileContents}. The imported packages and html structure should remain exactly the same.
 `
                 },
                 {
@@ -392,6 +400,8 @@ function appendJsonObject(filePath, newObject) {
 (async () => {
     const existingBlogPostData = await getCurrentStaticBlogPostData();
 
+    // console.log(existingBlogPostData)
+
     // had to move this to here.
     let exampleBlogPostFileContents = '';
     try {
@@ -403,29 +413,29 @@ function appendJsonObject(filePath, newObject) {
         console.error('error getting example file');
         return 'FAILED: error getting example file';
     }
-
-    // console.log({exampleBlogPostFileContents, existingBlogPostData});
+    // console.log({exampleBlogPostFileContents});
 
 
     // console.log({ existingBlogPostData });
     const aiResponse = await getCompletion(
-        existingBlogPostData.tenBlogPostFileNames, 
+        existingBlogPostData.tenBlogPostFileNames,
         exampleBlogPostFileContents,
     );
 
-    // console.log('AI RESPONSE: ', aiResponse.content)
+    console.log('AI RESPONSE: ', aiResponse.content)
 
-    const blogPostFileContents = aiResponse.content.replaceAll('```jsx', '').replaceAll('```', '').replaceAll("'", '"');       
+    const blogPostFileContents = aiResponse.content.replaceAll('```jsx', '').replaceAll('```', '').replaceAll("'", '"');
     const postTitle = parseTitleFromString(aiResponse.content);
     const fileName = postTitle.replaceAll(' ', '-').replaceAll("'", "").toLowerCase();
 
-
-    // FOR BLOG POSTS 
+    //
+    //
+    //
+    // FOR BLOG POSTS
     const firstPTagContent = getFirstPTagContent(blogPostFileContents);
     // console.log(firstPTagContent);
 
     console.log('|||||||||||||||||||||||||||||||||||||||||');
-    console.log(' ');
     console.log(' ');
 
     const phrases = [
@@ -442,7 +452,7 @@ function appendJsonObject(filePath, newObject) {
     ];
 
     const phrase = shuffleArray(phrases)[0];
-    const url = `${websiteBaseBlogFolderPath}/${fileName}`;
+    const url = `${webpageBlogPostBaseUrl}/${fileName}`;
 
     console.log(`${firstPTagContent}
 
@@ -450,13 +460,13 @@ function appendJsonObject(filePath, newObject) {
     );
 
     console.log(' ');
-    console.log(' ');
     console.log('|||||||||||||||||||||||||||||||||||||||||');
 
-    // 
-    //
+    console.log({
+      blogPostFileContents, firstPTagContent, url, exampleBlogPostFileContents
+    })
 
-    // 
+
 
     const newBlogPostObject = {
         date: new Date(),
@@ -464,10 +474,10 @@ function appendJsonObject(filePath, newObject) {
         title: postTitle,
         // data: aiResponse.content,
     };
-    appendJsonObject(staticBlogPostStoragePath, newBlogPostObject);
 
-    // append file to new file 
-     await createFolderAndFile(fileName, blogPostFileContents);
+    // add blog post record to static list file (for rendering)
+    appendJsonObject(externalJsonBlogPostList, newBlogPostObject);
+
+    // add new new blog post folder container file
+    await createFolderAndFile(fileName, blogPostFileContents);
 })();
-
- 
