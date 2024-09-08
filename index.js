@@ -438,7 +438,7 @@ function appendJsonObject(filePath, newObject) {
     // console.log(content);
     // console.log(typeof content);
 
-    blogPostFileContents = blogPostFileContents.replaceAll('```javascript', '').replaceAll('```', '').replaceAll('jsx', '');
+    blogPostFileContents = blogPostFileContents.replaceAll('```javascript', '').replaceAll('```', '').replaceAll('jsx', '').replaceAll("'", "&apos;");
     // console.log({blogPostFileContents})
     // const postTitle = parseTitleFromString(blogPostFileContents);
     const fileName = postTitle.replaceAll(' ', '-').replaceAll("'", "").replaceAll(":", "").toLowerCase();
