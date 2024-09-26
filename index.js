@@ -149,8 +149,8 @@ async function getBlogPostTitleCompletion(blogPostFileNamesList) {
   });
 
   const model = shuffleArray(['gpt-4o', 'gpt-3.5-turbo'])[0];
-  const temp = shuffleArray([0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 0.06, 0.07])[0];
-  const top_p = shuffleArray([0.08, 0.07, 0.06, 0.09, 0.08])[0];
+  const temp = shuffleArray([0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 0.09])[0];
+  const top_p = shuffleArray([0.08, 0.07, 0.09, 0.08])[0];
   try {
       const completion = await openai.chat.completions.create({
           model: model,
@@ -164,8 +164,8 @@ async function getBlogPostTitleCompletion(blogPostFileNamesList) {
 Persona: You are skilled in writing unique, witty, and engaging blog post titles that relate to job searching, resume writing, resume writing services, and thejob application process.
 Rules:
 1. The output should be creative, informative, and engaging blog post loosely related to resume writing, job searching, and job seeking.
-4. Use varying styles, sentence structure, and phrasing for the title of the article. Be different from these examples: ${blogPostFileNamesList}.
-6. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
+2. Use varying styles, sentence structure, and phrasing for the title of the article. Be different from these examples: ${blogPostFileNamesList}.
+3. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
 `
               },
               {
@@ -290,8 +290,8 @@ async function getBlogPostCompletion(blogTitle, blankTemplate) {
 
 
     const model = shuffleArray(['gpt-4o', 'gpt-3.5-turbo'])[0];
-    const temp = shuffleArray([0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 0.06, 0.07])[0];
-    const top_p = shuffleArray([0.08, 0.07, 0.06, 0.09, 0.08])[0];
+    const temp = shuffleArray([0.08, 0.08, 0.07, 0.09, 1, 0.08, 0.07, 1, 0.08])[0];
+    const top_p = shuffleArray([0.08, 0.07, 0.08, 0.09, 0.08])[0];
     // console.log({persona, model, temp, top_p});
 
     try {
@@ -315,6 +315,7 @@ Rules:
 4. The output canNOT have single commas in the content. avoid contractions.
 5. Optimize for SEO, incorporate the top keyword search words and phrases while sounding natural.
 6. Follow the same imports and html formatting as this template: ${blankTemplate} (but do add tags (spans, strongs, italics, etc.) inside of sections with the 'custom_html' class).
+7. In the conclusion, make sure to include a call to action to visit the resume generator page using these link props: <a href="https://www.resumai.services/resume-generator" className="text-blue-700 hover:underline" title="ResumAI - Resume Generator">...</a>.
 `
                 },
                 {
