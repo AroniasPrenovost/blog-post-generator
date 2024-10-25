@@ -451,7 +451,8 @@ function appendJsonObject(filePath, newObject) {
     const firstPTagContent = getFirstPTagContent(blogPostFileContents);
     // console.log(firstPTagContent);
 
-    console.log('|||||||||||||||||||||||||||||||||||||||||');
+    console.log('___________________________________________________');
+    console.log(' ');
     console.log(' ');
     const phrases = [
         'Click here to read more',
@@ -473,7 +474,8 @@ function appendJsonObject(filePath, newObject) {
         ${phrase} ${url}`
     );
     console.log(' ');
-    console.log('|||||||||||||||||||||||||||||||||||||||||');
+    console.log(' ');
+    console.log('___________________________________________________');
     // console.log({
     //   blogPostFileContents, firstPTagContent, url, exampleBlogPostFileContents
     // })
