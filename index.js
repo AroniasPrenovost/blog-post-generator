@@ -231,6 +231,11 @@ async function getBlogPostCompletion(blogTitle, blankTemplate) {
                 "background": "from Renton, WA, detailed, analytical, and empathetic, aimed at professionals looking to transition careers. With over a decade in career consulting, he blends psychological insights with career strategies, making his blog a go-to for transformative career advice. You can get in touch with him on LinkedIn: https://www.linkedin.com/in/ian-vensel-%F0%9F%8F%81-a2047146 and at https://empirestrategists.com."
               },
               {
+                "name": "Ian Vensel",
+                "job": "senior business development manager",
+                "background": "from Renton, WA, detailed, analytical, and empathetic, aimed at professionals looking to transition careers. With over a decade in career consulting, he blends psychological insights with career strategies, making his blog a go-to for transformative career advice. You can get in touch with him on LinkedIn: https://www.linkedin.com/in/ian-vensel-%F0%9F%8F%81-a2047146 and at https://empirestrategists.com."
+              },
+              {
                 "name": "Amanda Peete",
                 "job": "senior HR professional",
                 "background": "from Silicon Valley, California, balanced with humor and authority, breaking down HR policies and industry trends into digestible pieces. Her 20 years of HR experience allow her to provide a nuanced perspective on employee relations, compliance, and organizational development."
@@ -268,7 +273,7 @@ async function getBlogPostCompletion(blogTitle, blankTemplate) {
               {
                 "name": "Eli Lewis",
                 "job": "sales recruitment specialist",
-                "background": "from Detroit, Michigan, vibrant and persuasive, much like her approach to sales recruitment over the past 12 years. She excels at narrating success stories, crafting compelling pitches, and providing tips on negotiation and closing deals in job searches."
+                "background": "from Detroit, Michigan, vibrant and persuasive, much like his approach to sales recruitment over the past 12 years. He excels at narrating success stories, crafting compelling pitches, and providing tips on negotiation and closing deals in job searches."
               }
             ];
 
